@@ -70,7 +70,7 @@ class CreateAdmin extends Command
             $this->line(str_repeat('=', 30));
             $this->line("Email    : {$user->email}");
             $this->line("Password : password");
-            $this->line(str_repeat('=', 39));
+            $this->line(str_repeat('=', 30));
             $this->info("Please make sure to save this information safely.");
         } catch (\Exception $e) {
             DB::rollBack();
