@@ -26,6 +26,10 @@ class AuthenticationSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => __('messages.logged_out'),
+        ]);
     }
 }

@@ -8,6 +8,14 @@ use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /**
+ * Ping Route
+ */
+
+Route::get('/ping', fn() => response()->json(['message' => 'pong']))
+    ->middleware('auth:sanctum')
+    ->name('ping');
+
+/**
  * Authentication Routes
  */
 Route::post('/login', [AuthenticationSessionController::class, 'store'])
@@ -16,7 +24,7 @@ Route::post('/login', [AuthenticationSessionController::class, 'store'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->name('register');
 
-Route::post('/logout', [AuthenticationSessionController::class, 'destroy'])
+Route::delete('/logout', [AuthenticationSessionController::class, 'destroy'])
     ->middleware('auth:sanctum')
     ->name('logout');
 
