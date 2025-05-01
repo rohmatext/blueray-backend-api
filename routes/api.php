@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\Auth\AuthenticationSessionController;
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
 use App\Http\Controllers\Api\PasswordController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\Shipment\CourierController;
+use App\Http\Controllers\Api\Shipment\ShipmentController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +54,9 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/users')->name('users
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
 });
 
+/**
+ * Address Management Routes
+ */
 Route::middleware(['auth:sanctum'])->prefix('/addresses')->name('addresses.')->group(function () {
     Route::get('/provinces', [ProvinceController::class, 'index'])->name('provinces.index');
 
@@ -60,4 +65,17 @@ Route::middleware(['auth:sanctum'])->prefix('/addresses')->name('addresses.')->g
     Route::post('/', [AddressController::class, 'store'])->name('store');
     Route::patch('/{address}', [AddressController::class, 'update'])->name('update');
     Route::delete('/{address}', [AddressController::class, 'destroy'])->name('destroy');
+});
+
+/**
+ * Shipment Management Routes
+ */
+Route::middleware(['auth:sanctum'])->prefix('/shipments')->name('shipments.')->group(function () {
+    Route::get('/couriers', [CourierController::class, 'index'])->name('courier.index');
+
+    Route::get('/', [ShipmentController::class, 'index'])->name('index');
+    Route::get('/{shipment}', [ShipmentController::class, 'show'])->name('show');
+    Route::post('/', [ShipmentController::class, 'store'])->name('store');
+    Route::patch('/{shipment}', [ShipmentController::class, 'update'])->name('update');
+    Route::delete('/{shipment}', [ShipmentController::class, 'destroy'])->name('destroy');
 });
