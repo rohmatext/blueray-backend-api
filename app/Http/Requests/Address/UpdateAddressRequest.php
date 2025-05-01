@@ -28,7 +28,7 @@ class UpdateAddressRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'regex:/^(\\+62|62|0)[1-9]{1}[0-9]{8,11}$/'],
             'address' => ['required', 'string', 'max:255'],
-            'district' => ['required', 'string', 'max:255'],
+            'subdistrict' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'province' => ['required', 'string', 'max:255', function ($attribute, $value, $fail) use ($provinceService) {
                 if ($provinceService->getProvince($value) === null) {
