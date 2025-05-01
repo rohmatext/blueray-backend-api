@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Address\AddressController;
+use App\Http\Controllers\Api\Address\ProvinceController;
 use App\Http\Controllers\Api\Auth\AuthenticationSessionController;
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
 use App\Http\Controllers\Api\PasswordController;
@@ -48,4 +50,14 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('/users')->name('users
     Route::get('/{user}', [UserController::class, 'show'])->name('show');
     Route::patch('/{user}', [UserController::class, 'update'])->name('update');
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth:sanctum'])->prefix('/addresses')->name('addresses.')->group(function () {
+    Route::get('/provinces', [ProvinceController::class, 'index'])->name('provinces.index');
+
+    Route::get('/', [AddressController::class, 'index'])->name('index');
+    Route::get('/{address}', [AddressController::class, 'show'])->name('show');
+    Route::post('/', [AddressController::class, 'store'])->name('store');
+    Route::patch('/{address}', [AddressController::class, 'update'])->name('update');
+    Route::delete('/{address}', [AddressController::class, 'destroy'])->name('destroy');
 });
