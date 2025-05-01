@@ -27,7 +27,7 @@ class UserService
     public function fetchAllUsers(?string $search = null)
     {
         return User::with('roles')
-            ->search($search)
+            ->search(strlen($search) ? $search : null)
             ->latest()
             ->get();
     }

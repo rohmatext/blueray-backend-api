@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -61,8 +62,11 @@ class User extends Authenticatable
     public function scopeSearch(Builder $query, ?string $keyword = null): Builder
     {
         return $query->when(
-            strlen($keyword),
-            fn($query) => $query->whereAny(['name', 'email'], 'like', "%{$keyword}%")
+            $keyword,
+            fn($query) => $query->whereAny([
+                DB::raw('lower(users.name)'),
+                DB::raw('lower(users.email)')
+            ], 'like', "%" . strtolower($keyword) . "%")
         );
     }
 }
