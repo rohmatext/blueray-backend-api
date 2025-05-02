@@ -7,12 +7,7 @@ class CourierService
 
     private array $couriers = [
         ["company" => "sicepat", "name" => "Sicepat Reguler", "type" => "reg"],
-        ["company" => "sicepat", "name" => "Sicepat Best", "type" => "best"],
-        ["company" => "sicepat", "name" => "Sicepat SDS", "type" => "sds"],
-        ["company" => "sicepat", "name" => "Sicepat GOKIL", "type" => "gokil"],
         ["company" => "jne", "name" => "JNE Reguler", "type" => "reg"],
-        ["company" => "jne", "name" => "JNE YES", "type" => "yes"],
-        ["company" => "jne", "name" => "JNE OKE", "type" => "oke"],
         ["company" => "jne", "name" => "JNE JTR", "type" => "jtr"],
         ["company" => "jnt", "name" => "J&T EZ", "type" => "ez"],
         ["company" => "anteraja", "name" => "Anteraja Reguler", "type" => "reg"],
