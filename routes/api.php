@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\PasswordController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Shipment\CourierController;
 use App\Http\Controllers\Api\Shipment\ShipmentController;
+use App\Http\Controllers\Api\Shipment\TrackingController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,4 +79,6 @@ Route::middleware(['auth:sanctum'])->prefix('/shipments')->name('shipments.')->g
     Route::post('/', [ShipmentController::class, 'store'])->name('store');
     Route::patch('/{shipment}', [ShipmentController::class, 'update'])->name('update');
     Route::delete('/{shipment}', [ShipmentController::class, 'destroy'])->name('destroy');
+
+    Route::get('/trackings/{id}', [TrackingController::class, 'show'])->name('trackings.show');
 });

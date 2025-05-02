@@ -63,9 +63,15 @@ class ShipmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Shipment $shipment)
     {
-        //
+        return response()->json([
+            'message' => __('messages.retrieved', ['item' => 'shipment']),
+            'data' => [
+                'shipment' => $shipment->load('items'),
+                'order' => $this->orderService->getOrder($shipment->external_id),
+            ]
+        ]);
     }
 
     /**

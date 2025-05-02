@@ -3,11 +3,12 @@
 namespace App\Services\Biteship;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class OrderService
 {
-    const PREFIX_ENDPOINT = 'v1/orders';
+    const PATH = 'v1/orders';
 
     private $client;
 
@@ -23,9 +24,30 @@ class OrderService
         ]);
     }
 
+    public function getOrder(string $orderId)
+    {
+        $key = 'order_' . $orderId;
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $url = config('biteship.url') . '/' . self::PATH . '/' . $orderId;
+
+        $response = $this->client->get($url);
+        if ($response->failed()) {
+            throw new \Exception($response->body());
+        }
+
+        return Cache::remember(
+            $key,
+            now()->addMinutes(5),
+            fn() => $response->collect()
+        );
+    }
+
     public function createOrder(array $values)
     {
-        $url = config('biteship.url') . '/' . self::PREFIX_ENDPOINT;
+        $url = config('biteship.url') . '/' . self::PATH;
 
         $data = [
             ...$this->getShipperDetail(),
