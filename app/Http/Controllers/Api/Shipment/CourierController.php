@@ -13,6 +13,7 @@ class CourierController extends Controller
     ) {
         //
     }
+
     /**
      * Display a listing of couriers.
      */

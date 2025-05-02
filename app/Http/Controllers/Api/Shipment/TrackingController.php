@@ -10,7 +10,10 @@ class TrackingController extends Controller
 {
     public function __construct(
         private TrackingService $trackingService = new TrackingService()
-    ) {}
+    ) {
+        //
+    }
+
     /**
      * Display the specified resource.
      */

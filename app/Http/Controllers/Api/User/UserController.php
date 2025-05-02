@@ -19,7 +19,6 @@ class UserController extends Controller
         //
     }
 
-
     /**
      * Display a list of all users.
      *

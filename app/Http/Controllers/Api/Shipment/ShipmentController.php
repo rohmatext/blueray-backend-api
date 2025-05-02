@@ -20,6 +20,7 @@ class ShipmentController extends Controller
     ) {
         //
     }
+
     /**
      * Display a listing of the resource.
      */
