@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Shipment extends Model
 {
@@ -65,5 +66,20 @@ class Shipment extends Model
     public function scopeByUser($query, $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    /**
+     * Scope a query to retrieve shipment statistics grouped by day.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  int  $days  Number of days to look back for statistics
+     * 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStatsByDays($query, $days = 30)
+    {
+        return $query->select(DB::raw('TO_CHAR(shipments.created_at, \'YYYY-MM-DD\') as date'), DB::raw('COUNT(shipments.id) as count'))
+            ->where('shipments.created_at', '>=', today()->subDays($days))
+            ->groupByRaw('date');
     }
 }

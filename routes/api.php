@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Shipment\CourierController;
 use App\Http\Controllers\Api\Shipment\ShipmentController;
 use App\Http\Controllers\Api\Shipment\TrackingController;
+use App\Http\Controllers\Api\Stat\StatController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -81,4 +82,11 @@ Route::middleware(['auth:sanctum'])->prefix('/shipments')->name('shipments.')->g
     Route::delete('/{shipment}', [ShipmentController::class, 'destroy'])->name('destroy');
 
     Route::get('/trackings/{id}', [TrackingController::class, 'show'])->name('trackings.show');
+});
+
+/**
+ * Statistics Routes
+ */
+Route::middleware('auth:sanctum')->prefix('/stats')->name('stats.')->group(function () {
+    Route::get('/', [StatController::class, 'index'])->name('index');
 });
