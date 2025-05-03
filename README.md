@@ -1,61 +1,206 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Backend Order Shipping & Tracking API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+*Aplikasi backend untuk sistem pengiriman dan pelacakan paket menggunakan Laravel, dikembangkan untuk keperluan technical test di Blueray Cargo. Aplikasi ini berbasis API (tanpa frontend) dan menyediakan endpoint untuk autentikasi, manajemen alamat, pengiriman, dan pengguna.*
 
-## About Laravel
+Untuk repository frontend
+[klik disini](https://github.com/rohmatnov/blueray-frontend)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instalasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone repository**
 
-## Learning Laravel
+   ```bash
+   git clone git@github.com:rohmatnov/blueray-backend-api.git
+   cd blueray-backend-api
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Install dependensi PHP**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+   ```bash
+   composer install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Copy file environment**
 
-## Laravel Sponsors
+   ```bash
+   cp .env.example .env
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Generate application key**
 
-### Premium Partners
+   ```bash
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+5. **Setup database**
 
-## Contributing
+   * Edit file `.env`, sesuaikan konfigurasi database:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+     ```
+     DB_CONNECTION=pgsql
+     DB_HOST=127.0.0.1
+     DB_PORT=5432
+     DB_DATABASE=nama_database
+     DB_USERNAME=postgres
+     DB_PASSWORD=password
+     ```
 
-## Code of Conduct
+6. **Mengatur API Biteship**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   * Edit file `.env`, dan masukan api Biteship
 
-## Security Vulnerabilities
+   ```
+   BITSHIP_API_KEY=XXXXXX
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. **Mengatur URL Frontend**
+   * Edit file `.env`, dan masukan url frontend 
 
-## License
+   ```
+   FRONTEND_URL=http://domainkamu.com
+   ```
+   > `FRONTEND_URL` digunakan untuk mengatur domain frontend yang diizinkan mengakses API melalui mekanisme CORS (Cross-Origin Resource Sharing). Pastikan URL sesuai dengan domain aplikasi frontend yang akan mengkonsumsi API ini.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. **Jalankan migrasi dan seeder**
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+   Seeder akan membuat 2 role default: `admin` dan `user`
+
+9. **Buat akun admin**
+
+   ```bash
+   php artisan create:admin
+   ```
+
+   Masukkan data yang diminta untuk membuat akun admin.
+
+---
+
+## Menjalankan Proyek
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi di `http://localhost:8000`
+
+---
+
+## 📱 Dokumentasi API
+
+### Autentikasi
+
+| Method | Endpoint      | Deskripsi                   | Auth  |
+| ------ | ------------- | --------------------------- | ----- |
+| POST   | /api/login    | Login dan mendapatkan token | Tidak |
+| DELETE | /api/logout   | Logout dan hapus sesi       | Ya    |
+| POST   | /api/register | Registrasi pengguna baru    | Tidak |
+| PATCH  | /api/password | Update password pengguna    | Ya    |
+
+### Profil
+
+| Method | Endpoint     | Deskripsi                   | Auth |
+| ------ | ------------ | --------------------------- | ---- |
+| GET    | /api/profile | Mendapatkan profil pengguna | Ya   |
+| PATCH  | /api/profile | Update profil pengguna      | Ya   |
+
+### Alamat (Addresses)
+
+| Method | Endpoint                 | Deskripsi               | Auth  |
+| ------ | ------------------------ | ----------------------- | ----- |
+| GET    | /api/addresses           | List semua alamat       | Ya    |
+| POST   | /api/addresses           | Menambahkan alamat baru | Ya    |
+| GET    | /api/addresses/{id}      | Detail alamat tertentu  | Ya    |
+| PATCH  | /api/addresses/{id}      | Update alamat           | Ya    |
+| DELETE | /api/addresses/{id}      | Hapus alamat            | Ya    |
+| GET    | /api/addresses/provinces | List semua provinsi     | Ya    |
+
+### Pengiriman (Shipments)
+
+| Method | Endpoint                      | Deskripsi                  | Auth  |
+| ------ | ----------------------------- | -------------------------- | ----- |
+| GET    | /api/shipments                | List pengiriman            | Ya    |
+| POST   | /api/shipments                | Buat pengiriman            | Ya    |
+| GET    | /api/shipments/{id}           | Detail pengiriman tertentu | Ya    |
+| PATCH  | /api/shipments/{id}           | Update pengiriman          | Ya    |
+| DELETE | /api/shipments/{id}           | Hapus pengiriman           | Ya    |
+| GET    | /api/shipments/couriers       | List kurir                 | Ya    |
+| GET    | /api/shipments/trackings/{id} | Lacak pengiriman           | Ya    |
+
+### Statistik
+
+| Method | Endpoint   | Deskripsi          | Auth |
+| ------ | ---------- | ------------------ | ---- |
+| GET    | /api/stats | Statistik aplikasi | Ya   |
+
+### Pengguna (Hanya Admin)
+
+| Method | Endpoint        | Deskripsi       | Auth |
+| ------ | --------------- | --------------- | ---- |
+| GET    | /api/users      | List pengguna   | Ya   |
+| GET    | /api/users/{id} | Detail pengguna | Ya   |
+| PATCH  | /api/users/{id} | Update pengguna | Ya   |
+| DELETE | /api/users/{id} | Hapus pengguna  | Ya   |
+
+### Utilitas
+
+| Method | Endpoint  | Deskripsi       | Auth  |
+| ------ | --------- | --------------- | ----- |
+| GET    | /api/ping | Cek koneksi API | Tidak |
+
+> **Catatan:** Gunakan token Bearer di header `Authorization` untuk endpoint yang membutuhkan autentikasi.
+
+---
+
+## Cara Menggunakan Aplikasi
+
+1. **Registrasi dan Login**
+
+   * Pengguna dapat mendaftar dan login melalui endpoint API.
+
+2. **Manajemen Alamat**
+
+   * Pengguna dapat membuat, membaca, memperbarui, dan menghapus alamat pengiriman.
+
+3. **Manajemen Pengiriman**
+
+   * Pengguna dapat membuat pengiriman, memilih kurir, dan melacak status pengiriman via API Biteship.
+
+4. **Manajemen Pengguna**
+
+   * Admin dapat mengelola pengguna yang terdaftar dalam sistem.
+
+5. **Fitur Tambahan**
+
+   * Autentikasi berbasis token (Sanctum)
+   * Middleware untuk proteksi route
+   * Validasi input
+
+---
+
+## Dokumentasi API via Postman
+
+Tersedia file Postman collection untuk menguji endpoint:
+
+📁 `blueray-api.postman_collection.json`
+
+Import ke Postman dan atur environment sesuai token jika diperlukan.
+
+---
+
+## Tools & Teknologi
+
+* Laravel 12.x
+* PostgreSQL
+* Laravel Sanctum
+* RESTful API
+
+
+## Pengembang
+
+* [Muhammad Rohmat](https://github.com/rohmatnov)
