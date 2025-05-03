@@ -187,7 +187,7 @@ Akses aplikasi di `http://localhost:8000`
 
 Tersedia file Postman collection untuk menguji endpoint:
 
-📁 `blueray-api.postman_collection.json`
+📁 [`blueray-api.postman_collection.json`](https://drive.google.com/file/d/1EvE7bRveQPjFcAMS_TNo_K8Yk2YRJf5M/view?usp=drive_link)
 
 Import ke Postman dan atur environment sesuai token jika diperlukan.
 
