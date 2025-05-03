@@ -3,7 +3,7 @@
 *Aplikasi backend untuk sistem pengiriman dan pelacakan paket menggunakan Laravel, dikembangkan untuk keperluan technical test di Blueray Cargo. Aplikasi ini berbasis API (tanpa frontend) dan menyediakan endpoint untuk autentikasi, manajemen alamat, pengiriman, dan pengguna.*
 
 Untuk repository frontend
-[klik disini](https://github.com/rohmatnov/blueray-frontend)
+[klik disini](https://github.com/rohmatext/blueray-frontend)
 
 ---
 
@@ -12,7 +12,7 @@ Untuk repository frontend
 1. **Clone repository**
 
    ```bash
-   git clone git@github.com:rohmatnov/blueray-backend-api.git
+   git clone git@github.com:rohmatext/blueray-backend-api.git
    cd blueray-backend-api
    ```
 
@@ -203,4 +203,4 @@ Import ke Postman dan atur environment sesuai token jika diperlukan.
 
 ## Pengembang
 
-* [Muhammad Rohmat](https://github.com/rohmatnov)
+* [Muhammad Rohmat](https://github.com/rohmatext)
